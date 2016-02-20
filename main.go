@@ -8,38 +8,24 @@ import (
 
 func main() {
 
-	// orig javascript implementation
-	//
-	// b.lineCap = "round";
-	// for (var a = 1;a < 600; a += .4) {
-	//   b.beginPath();
-	//   b.strokeStyle = [
-	//  	"rgba(" + ((a | 0) % 200 + 55) + ",255,0,.01)",
-	//  	"rgba(" + (a / 2 | 0) + ",255,0,.02)",
-	//  	"rgba(" + (a | 0) % 255 + ",255,0,.02)",
-	//  ][a % 3]
-	//   b.lineWidth = a % 300;
-	//   b.bezierCurveTo(0, 0, a % 100, a % 200, 150, 50);
-	//   b.rotate(rad(200));
-	//   b.translate(a, a);
-	//   b.stroke();
-	// }
-
 	const (
-		r = 600
-		S = 970 // r * math.Phi
+		w = 1440
+		h = 900
+		r = h * math.Phi
 	)
 
-	dc := gg.NewContext(S, S)
+	dc := gg.NewContext(w, h)
 
 	dc.SetRGB(0, 0, 0)
-	dc.DrawRectangle(0, 0, S, S)
+	dc.DrawRectangle(0, 0, w, h)
 	dc.Fill()
 
 	dc.SetLineCapRound()
-	dc.Translate(S/2, S/2)
+	dc.Translate(w/2, h/2)
 
 	rad := gg.Radians(200)
+
+	dc.Scale(.5, .5)
 
 	for a := float64(1); a < r; a += ((r - a) / 1000) + 0.06 {
 		switch int(a) % 3 {
